@@ -1,291 +1,157 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>HBD</title>
-    <link type="text/css" rel="stylesheet" href="./file/default.css" />
-    <script type="text/javascript" src="./file/jquery.min.js"></script>
-    <script type="text/javascript" src="./file/jscex.min.js"></script>
-    <script type="text/javascript" src="./file/jscex-parser.js"></script>
-    <script type="text/javascript" src="./file/jscex-jit.js"></script>
-    <script
-      type="text/javascript"
-      src="./file/jscex-builderbase.min.js"
-    ></script>
-    <script type="text/javascript" src="./file/jscex-async.min.js"></script>
-    <script
-      type="text/javascript"
-      src="./file/jscex-async-powerpack.min.js"
-    ></script>
-    <script
-      type="text/javascript"
-      src="./file/functions.js"
-      charset="utf-8"
-    ></script>
-    <script
-      type="text/javascript"
-      src="./file/love.js"
-      charset="utf-8"
-    ></script>
-    <script>
-      function playAudio() {
-        var audio = document.getElementById("myAudio");
-        audio.play();
-      }
-    </script>
-  </head>
-  <body>
-    <div id="main">
-      <div id="error">
-        <a
-          href="http://www.google.cn/chrome/intl/zh-CN/landing_chrome.html?hl=zh-CN&brand=CHMI"
-          >Chrome</a
-        >
-        (<a href="http://firefox.com.cn/download/">Firefox</a>)
-      </div>
-      <audio autoplay="autoplay" height="100" width="100" id="myAudio">
-        <source src="aud.mp3" type="audio/mp3" />
-        <embed height="100" width="100" src="aud.mp3" />
-      </audio>
-      <div id="wrap">
-        <div id="text">
-          <div id="code">
-  <!-- Short Funny + Sweet Birthday Message -->
-<div class="space-y-5 font-display text-slate-800 dark:text-slate-200">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Vedika 🎂</title>
 
-    <h2 class="text-3xl font-extrabold text-center text-primary">
-        🚨 Breaking News 🚨
-    </h2>
+<style>
+body{
+  margin:0;
+  padding:0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg,#ffdde1,#ee9ca7);
+  overflow-x:hidden;
+  text-align:center;
+}
 
-    <div class="text-center text-lg leading-relaxed">
-        Happy Birthday Vedika! 🎂  
-        Another year older… but still causing drama like a full-time job.
-    </div>
+.container{
+  max-width:1000px;
+  margin:auto;
+  padding:20px;
+}
 
-    <div class="text-center text-lg leading-relaxed">
-        You’re chaotic, loud, and slightly delusional —  
-        but honestly? Life would be boring without you.
-    </div>
+h1{
+  font-size: clamp(28px, 5vw, 50px);
+  color:#fff;
+  margin-top:30px;
+}
 
-    <div class="text-center text-primary font-semibold">
-        May your day be full of cake, attention,  
-        and just the right amount of main-character energy ✨
-    </div>
+.message{
+  font-size: clamp(16px, 3vw, 22px);
+  color:#fff;
+  margin:20px 0;
+  line-height:1.6;
+}
 
-    <div class="text-right text-lg font-bold text-primary">
-        – Your Favorite person 💅
-    </div>
+button{
+  padding:12px 25px;
+  font-size:16px;
+  border:none;
+  border-radius:30px;
+  background:#fff;
+  color:#ff4e8d;
+  cursor:pointer;
+  font-weight:bold;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.1);
+}
+
+canvas{
+  width:100%;
+  max-width:100%;
+  margin-top:20px;
+}
+
+.footer{
+  margin-top:30px;
+  font-size:14px;
+  color:#fff;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🎉 Happy Birthday Vedika 🎂</h1>
+
+<div class="message">
+🚨 Breaking News 🚨 <br><br>
+Another year older… but still causing drama like a full-time job 😌 <br><br>
+You’re chaotic, loud, and slightly delusional —  
+but honestly? Life would be boring without you. <br><br>
+May your day be full of cake, attention,  
+and main-character energy ✨
+</div>
+
+<button onclick="startExperience()">Tap Here 💖</button>
+
+<canvas id="birthdayCanvas"></canvas>
+
+<div class="footer">
+– Your Favorite Person 💅
+</div>
 
 </div>
 
+<audio id="music" loop>
+  <source src="aud.mp3" type="audio/mp3">
+</audio>
 
-            ><br />
-          </div>
-        </div>
-        <div id="clock-box">
-          <span id="clock">577 days 0 hours 0 minutes 0 seconds</span>
-          <!-- Change to "6940 days..." if needed -->
-        </div>
-        <canvas id="canvas" width="1100" height="680"></canvas>
-      </div>
-    </div>
+<script>
+const canvas = document.getElementById("birthdayCanvas");
+const ctx = canvas.getContext("2d");
 
-    <script>
-      (function () {
-        var canvas = $("#canvas");
+function resizeCanvas(){
+  canvas.width = canvas.parentElement.clientWidth;
+  canvas.height = canvas.width * 0.6;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
-        if (!canvas[0].getContext) {
-          $("#error").show();
-          return false;
-        }
+let particles = [];
 
-        var width = canvas.width();
-        var height = canvas.height();
-        canvas.attr("width", width);
-        canvas.attr("height", height);
+function createFirework(){
+  for(let i=0;i<80;i++){
+    particles.push({
+      x:canvas.width/2,
+      y:canvas.height/2,
+      radius:Math.random()*4+1,
+      color:`hsl(${Math.random()*360},100%,60%)`,
+      speedX:(Math.random()-0.5)*6,
+      speedY:(Math.random()-0.5)*6,
+      alpha:1
+    });
+  }
+}
 
-        var opts = {
-          seed: {
-            x: width / 2 - 20,
-            color: "rgb(190, 26, 37)",
-            scale: 2,
-          },
-          branch: [
-            [
-              535,
-              680,
-              570,
-              250,
-              500,
-              200,
-              30,
-              100,
-              [
-                [
-                  540,
-                  500,
-                  455,
-                  417,
-                  340,
-                  400,
-                  13,
-                  100,
-                  [[450, 435, 434, 430, 394, 395, 2, 40]],
-                ],
-                [
-                  550,
-                  445,
-                  600,
-                  356,
-                  680,
-                  345,
-                  12,
-                  100,
-                  [[578, 400, 648, 409, 661, 426, 3, 80]],
-                ],
-                [539, 281, 537, 248, 534, 217, 3, 40],
-                [
-                  546,
-                  397,
-                  413,
-                  247,
-                  328,
-                  244,
-                  9,
-                  80,
-                  [
-                    [427, 286, 383, 253, 371, 205, 2, 40],
-                    [498, 345, 435, 315, 395, 330, 4, 60],
-                  ],
-                ],
-                [
-                  546,
-                  357,
-                  608,
-                  252,
-                  678,
-                  221,
-                  6,
-                  100,
-                  [[590, 293, 646, 277, 648, 271, 2, 80]],
-                ],
-              ],
-            ],
-          ],
-          bloom: {
-            num: 700,
-            width: 1080,
-            height: 650,
-          },
-          footer: {
-            width: 1200,
-            height: 5,
-            speed: 10,
-          },
-        };
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
 
-        var tree = new Tree(canvas[0], width, height, opts);
-        var seed = tree.seed;
-        var foot = tree.footer;
-        var hold = 1;
+  particles.forEach((p,index)=>{
+    p.x+=p.speedX;
+    p.y+=p.speedY;
+    p.alpha-=0.01;
 
-        canvas
-          .click(function (e) {
-            playAudio();
-            var offset = canvas.offset(),
-              x,
-              y;
-            x = e.pageX - offset.left;
-            y = e.pageY - offset.top;
-            if (seed.hover(x, y)) {
-              hold = 0;
-              canvas.unbind("click");
-              canvas.unbind("mousemove");
-              canvas.removeClass("hand");
-            }
-          })
-          .mousemove(function (e) {
-            var offset = canvas.offset(),
-              x,
-              y;
-            x = e.pageX - offset.left;
-            y = e.pageY - offset.top;
-            canvas.toggleClass("hand", seed.hover(x, y));
-          });
+    ctx.globalAlpha=p.alpha;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.radius,0,Math.PI*2);
+    ctx.fillStyle=p.color;
+    ctx.fill();
 
-        var seedAnimate = eval(
-          Jscex.compile("async", function () {
-            seed.draw();
-            while (hold) {
-              $await(Jscex.Async.sleep(10));
-            }
-            while (seed.canScale()) {
-              seed.scale(0.95);
-              $await(Jscex.Async.sleep(10));
-            }
-            while (seed.canMove()) {
-              seed.move(0, 2);
-              foot.draw();
-              $await(Jscex.Async.sleep(10));
-            }
-          })
-        );
+    if(p.alpha<=0){
+      particles.splice(index,1);
+    }
+  });
 
-        var growAnimate = eval(
-          Jscex.compile("async", function () {
-            do {
-              tree.grow();
-              $await(Jscex.Async.sleep(10));
-            } while (tree.canGrow());
-          })
-        );
+  ctx.globalAlpha=1;
+  requestAnimationFrame(animate);
+}
 
-        var flowAnimate = eval(
-          Jscex.compile("async", function () {
-            do {
-              tree.flower(2);
-              $await(Jscex.Async.sleep(10));
-            } while (tree.canFlower());
-          })
-        );
+animate();
 
-        var moveAnimate = eval(
-          Jscex.compile("async", function () {
-            tree.snapshot("p1", 240, 0, 610, 680);
-            while (tree.move("p1", 500, 0)) {
-              foot.draw();
-              $await(Jscex.Async.sleep(10));
-            }
-            foot.draw();
-            tree.snapshot("p2", 500, 0, 610, 680);
+function startExperience(){
+  document.getElementById("music").play();
+  createFirework();
+}
+</script>
 
-            canvas
-              .parent()
-              .css("background", "url(" + tree.toDataURL("image/png") + ")");
-            canvas.css("background", "#ffe");
-            $await(Jscex.Async.sleep(300));
-            canvas.css("background", "none");
-          })
-        );
-
-        var textAnimate = eval(
-          Jscex.compile("async", function () {
-            $("#code").show().typewriter();
-          })
-        );
-
-        var runAsync = eval(
-          Jscex.compile("async", function () {
-            $await(seedAnimate());
-            $await(growAnimate());
-            $await(flowAnimate());
-            $await(moveAnimate());
-            textAnimate().start();
-          })
-        );
-
-        runAsync().start();
-      })();
-    </script>
-  </body>
+</body>
 </html>
